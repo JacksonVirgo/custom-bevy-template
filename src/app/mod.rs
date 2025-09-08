@@ -5,16 +5,15 @@ pub mod setup;
 use bevy::prelude::*;
 use leafwing_input_manager::plugin::InputManagerPlugin;
 
-use crate::{app::input::InputActions, camera, entities, scenes, utils};
+use crate::{app::input::InputActions, features, scenes, utils};
 
 pub struct AppPlugin;
 impl Plugin for AppPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
-            camera::CameraPlugin,
-            entities::EntityPlugin,
             scenes::ScenePlugin,
             utils::UtilityPlugin,
+            features::FeaturePlugin,
             InputManagerPlugin::<InputActions>::default(),
         ));
 
