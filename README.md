@@ -1,2 +1,3 @@
-# custom-bevy-template
-Bevy template to quickly spin up a project
+# Bevy Template
+
+Template to quickly spin up a project without needing to write out a lot of boilerplate.
