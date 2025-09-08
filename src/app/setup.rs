@@ -1,15 +1,17 @@
 use bevy::prelude::*;
 
-use crate::app::{AppPlugin, config};
+use crate::app::{AppPlugin, config::GameConfig};
 
 pub fn setup_game() {
     let mut app = App::new();
+
+    let cfg = GameConfig::default();
 
     app.add_plugins(
         DefaultPlugins
             .set(WindowPlugin {
                 primary_window: Some(Window {
-                    title: config::TITLE.into(),
+                    title: cfg.title.into(),
                     ..default()
                 }),
                 ..default()
@@ -18,7 +20,7 @@ pub fn setup_game() {
     );
 
     app.add_plugins(AppPlugin);
-    app.insert_resource(ClearColor(config::CLEAR_COLOR));
+    app.insert_resource(ClearColor(Color::BLACK));
 
     app.run();
 }
