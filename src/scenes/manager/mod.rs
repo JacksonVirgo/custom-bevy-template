@@ -27,3 +27,25 @@ pub fn add_scene<M>(
     app.add_systems(OnEnter(scene), systems);
     app.add_systems(OnExit(scene), scene_cleanup);
 }
+
+pub fn warn_persist_on_child(
+    q: Query<
+        (Entity, Option<&Name>, Option<&ChildOf>),
+        (
+            With<ScenePersist>,
+            Or<(Added<ScenePersist>, Added<ChildOf>)>,
+        ),
+    >,
+) {
+    for (e, name, child_of) in &q {
+        if let Some(p) = child_of {
+            warn!(
+                "ScenePersist attached to CHILD {:?}{} (parent {:?}). \
+                 Scene cleanup only respects roots; tag the root instead.",
+                e,
+                name.map(|n| format!(" \"{n}\"")).unwrap_or_default(),
+                p.parent()
+            );
+        }
+    }
+}
